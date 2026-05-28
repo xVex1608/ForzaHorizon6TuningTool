@@ -1,0 +1,4027 @@
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --bg: #080a0e;
+  --sidebar: #0e1218;
+  --surface: #131922;
+  --surface-2: #19212c;
+  --surface-3: #202a36;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #f5f7f8;
+  --soft: #d7dde0;
+  --muted: #98a5ad;
+  --red: #ff3d57;
+  --green: #35d08b;
+  --cyan: #43c7e8;
+  --amber: #f4c84b;
+  --ink: #07090c;
+  --shadow: 0 24px 72px rgba(0, 0, 0, 0.34);
+  --window-controls-height: 38px;
+  --window-controls-width: 156px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 0;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 61, 87, 0.16), transparent 36%),
+    linear-gradient(315deg, rgba(67, 199, 232, 0.14), transparent 38%),
+    var(--bg);
+  color: var(--text);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+.appShell {
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+  height: 100vh;
+}
+
+.appShell.low-vram {
+  --shadow: none;
+  background: var(--bg);
+}
+
+.appShell.low-vram *,
+.appShell.low-vram *::before,
+.appShell.low-vram *::after {
+  animation: none !important;
+  scroll-behavior: auto !important;
+  transition-duration: 0.01ms !important;
+}
+
+.appShell.low-vram .commandBar {
+  background: #080a0e;
+  backdrop-filter: none;
+}
+
+.appShell.low-vram .sidebar,
+.appShell.low-vram .panel,
+.appShell.low-vram .tuneOutput,
+.appShell.low-vram .tunePanelTopBar,
+.appShell.low-vram .tuneLabHeader {
+  box-shadow: none;
+}
+
+.appShell.low-vram .heroBand {
+  background-image: none !important;
+  background-color: #121922;
+}
+
+.appShell.low-vram .tuneLabHeader,
+.appShell.low-vram .tunePanelTopBar,
+.appShell.low-vram .calibrationSection,
+.appShell.low-vram .dataSection,
+.appShell.low-vram .aeroCalibrationSection,
+.appShell.low-vram .limitSection,
+.appShell.low-vram .upgradeSection,
+.appShell.low-vram .advisorSection,
+.appShell.low-vram .assistantTargetSection,
+.appShell.low-vram .assistantPrioritySection,
+.appShell.low-vram .assistantCheckSection,
+.appShell.low-vram .tuneHero,
+.appShell.low-vram .tuneSection,
+.appShell.low-vram .dataHubHero,
+.appShell.low-vram .dataVehicleRow,
+.appShell.low-vram .section-aero .valueRow,
+.appShell.low-vram .valueRow.input-requiresUpgrade,
+.appShell.low-vram .digestCard,
+.appShell.low-vram .summaryScore,
+.appShell.low-vram .summaryScore.warning {
+  background-image: none;
+}
+
+.sidebar {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  gap: 18px;
+  min-height: 0;
+  overflow: hidden;
+  padding: 18px;
+  border-right: 1px solid var(--line);
+  background: rgba(14, 18, 24, 0.94);
+  box-shadow: var(--shadow);
+}
+
+.brandBlock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 8px 4px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brandMark {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgba(255, 61, 87, 0.52);
+  border-radius: 8px;
+  background: rgba(255, 61, 87, 0.12);
+  color: var(--red);
+}
+
+.brandBlock strong,
+.brandBlock span,
+.currentCar span,
+.sidebarKicker,
+.sidebarPanel span,
+.sourcePanel span,
+.sourcePanel small,
+.eyebrow,
+.field span,
+.segmentedGroup > span,
+.toggleField span,
+.sliderTop,
+.stat span,
+.valueRow small,
+.carListItem small,
+.profileRow span,
+.noticeLine span,
+.emptyState {
+  display: block;
+}
+
+.brandBlock strong {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brandBlock span,
+.sidebarKicker,
+.sidebarPanel span,
+.sourcePanel small,
+.currentCar span,
+.stat span,
+.field span,
+.segmentedGroup > span,
+.toggleField span,
+.sliderScale small,
+.valueRow small,
+.carListItem small,
+.profileRow span,
+.noticeLine span,
+.emptyState {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.sideNav {
+  display: grid;
+  gap: 8px;
+}
+
+.navItem,
+.iconButton,
+.toolButton,
+.chip,
+.carListItem,
+.profileRow button,
+.deleteButton {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+  cursor: pointer;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 12px;
+  color: var(--soft);
+  text-align: left;
+}
+
+.navItem:hover,
+.iconButton:hover,
+.toolButton:hover,
+.chip:hover,
+.carListItem:hover,
+.profileRow button:hover,
+.deleteButton:hover {
+  border-color: var(--line-strong);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+.iconButton:disabled,
+.toolButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.iconButton:disabled:hover,
+.toolButton:disabled:hover {
+  border-color: var(--line);
+}
+
+.navItem.active {
+  border-color: rgba(255, 61, 87, 0.55);
+  background: rgba(255, 61, 87, 0.16);
+  color: var(--text);
+}
+
+.sideStack {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.sidebarPanel {
+  display: grid;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.currentSetupPanel > strong {
+  overflow: visible;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.sidebarKicker {
+  color: var(--red);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.sideMetricGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.sideMetricGrid div {
+  min-width: 0;
+  min-height: 54px;
+  padding: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.26);
+}
+
+.sideMetricGrid b {
+  display: block;
+  overflow: hidden;
+  margin-top: 4px;
+  color: var(--text);
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quickToolsPanel {
+  gap: 8px;
+}
+
+.sidebarAction {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.25);
+  color: var(--soft);
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebarAction:hover {
+  border-color: var(--line-strong);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+.sidebarAction:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.sidebarAction svg {
+  color: var(--cyan);
+}
+
+.sidebarAction span {
+  color: var(--soft);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.sourcePanel {
+  align-self: end;
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid rgba(53, 208, 139, 0.32);
+  border-radius: 8px;
+  background: rgba(53, 208, 139, 0.08);
+}
+
+.sourcePanel div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--green);
+}
+
+.sourcePanel strong {
+  font-size: 23px;
+}
+
+.mainStage {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-width: 0;
+  min-height: 0;
+}
+
+.commandBar {
+  -webkit-app-region: drag;
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) auto auto;
+  align-items: center;
+  gap: 18px;
+  min-height: 112px;
+  padding: calc(var(--window-controls-height) + 12px) calc(22px + var(--window-controls-width)) 14px 22px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(8, 10, 14, 0.84);
+  backdrop-filter: blur(18px);
+}
+
+.currentCar {
+  min-width: 0;
+}
+
+.currentCar h1,
+.heroBand h2,
+.labIdentity h2,
+.panelHeader h3,
+.tuneHero h2,
+.tuneSection h3 {
+  margin: 0;
+}
+
+.currentCar h1 {
+  overflow: hidden;
+  font-size: 24px;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quickStats {
+  display: flex;
+  gap: 10px;
+}
+
+.stat {
+  display: grid;
+  gap: 4px;
+  min-width: 92px;
+  min-height: 54px;
+  align-content: center;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.stat strong {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stat.accent {
+  border-color: rgba(244, 200, 75, 0.45);
+  background: rgba(244, 200, 75, 0.1);
+}
+
+.stat.accent strong {
+  color: var(--amber);
+}
+
+.piBadge {
+  --pi-color: #ffc533;
+  --pi-bg: color-mix(in srgb, var(--pi-color) 20%, transparent);
+  --pi-border: color-mix(in srgb, var(--pi-color) 74%, #05070b);
+  --pi-text: #fff;
+  display: inline-flex;
+  width: 72px;
+  height: 30px;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 3px;
+  background: rgba(5, 7, 11, 0.86);
+  color: #fff;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow:
+    0 0 0 1px rgba(5, 7, 11, 0.72),
+    0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.piBadge .piClass,
+.piBadge .piScore {
+  display: inline-grid;
+  min-width: 0;
+  height: 100%;
+  align-self: stretch;
+  place-items: center;
+}
+
+.piBadge .piClass {
+  flex: 0 0 29px;
+  padding: 0;
+  background: var(--pi-color);
+  color: var(--pi-text);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+}
+
+.piBadge .piScore {
+  flex: 1 1 auto;
+  padding: 0 6px;
+  background: #05070b;
+  color: #fff;
+  letter-spacing: 0;
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.12);
+}
+
+.piBadge.classOnly {
+  width: 38px;
+}
+
+.piBadge.classOnly .piClass {
+  width: 100%;
+}
+
+.stat .piBadge,
+.sideMetricGrid .piBadge {
+  display: inline-flex;
+  width: 72px;
+  height: 30px;
+  font-size: 15px;
+}
+
+.pi-d {
+  --pi-color: #42bdf4;
+}
+
+.pi-c {
+  --pi-color: #ffc533;
+}
+
+.pi-b {
+  --pi-color: #ff632c;
+}
+
+.pi-a {
+  --pi-color: #ff1a46;
+}
+
+.pi-s1 {
+  --pi-color: #b960e8;
+}
+
+.pi-s2 {
+  --pi-color: #165edb;
+}
+
+.pi-r {
+  --pi-color: #d61a9c;
+}
+
+.pi-x {
+  --pi-color: #19d858;
+}
+
+.commandActions,
+.actionGrid,
+.toggleRow,
+.linkRow {
+  display: flex;
+  gap: 10px;
+}
+
+.commandActions,
+.commandActions button,
+.sideNav button,
+.profileRow button,
+.deleteButton {
+  -webkit-app-region: no-drag;
+}
+
+.iconButton,
+.toolButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 13px;
+}
+
+.toolButton {
+  width: 100%;
+}
+
+.primary {
+  border-color: rgba(53, 208, 139, 0.48);
+  background: rgba(53, 208, 139, 0.15);
+  color: #eafff3;
+}
+
+.view {
+  min-height: 0;
+  overflow: hidden;
+  padding: 18px;
+}
+
+.garageView,
+.setupView,
+.settingsView,
+.updatesView {
+  display: grid;
+  gap: 16px;
+}
+
+.garageView {
+  grid-template-rows: 194px minmax(0, 1fr);
+}
+
+.heroBand {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 22px;
+  overflow: hidden;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background-position: center;
+  background-size: cover;
+}
+
+.heroBand h2 {
+  max-width: 760px;
+  font-size: 34px;
+  line-height: 1.06;
+}
+
+.eyebrow {
+  margin-bottom: 6px;
+  color: var(--red);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.heroStats {
+  display: flex;
+  gap: 10px;
+}
+
+.garageLayout {
+  display: grid;
+  grid-template-columns: minmax(460px, 1fr) 380px;
+  gap: 16px;
+  min-height: 0;
+}
+
+.panel {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(19, 25, 34, 0.94);
+  box-shadow: var(--shadow);
+}
+
+.carBrowser,
+.detailPanel,
+.settingsPanel,
+.tuneControls,
+.fineTune,
+.setupView > .panel {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding: 18px;
+}
+
+.detailPanel {
+  align-self: start;
+}
+
+.carBrowser,
+.setupView > .panel {
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.panelHeader h3 {
+  font-size: 18px;
+}
+
+.panelHeader > strong,
+.panelHeader > svg {
+  color: var(--cyan);
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--muted);
+}
+
+.searchBox input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+}
+
+.classFilter {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.chip {
+  min-height: 34px;
+}
+
+.chip.active {
+  border-color: rgba(255, 61, 87, 0.55);
+  background: var(--red);
+  color: #fff;
+  font-weight: 800;
+}
+
+.classChip {
+  border-color: var(--pi-border);
+  background: color-mix(in srgb, var(--pi-color) 18%, transparent);
+  color: #fff;
+  font-weight: 850;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.42);
+}
+
+.classChip.active {
+  border-color: var(--pi-border);
+  background: var(--pi-color);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pi-border) 52%, transparent);
+  color: #fff;
+}
+
+.carList,
+.profileList {
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.carList {
+  display: grid;
+  gap: 8px;
+}
+
+.carListItem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 72px;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 9px 11px;
+  text-align: left;
+}
+
+.carListMain {
+  min-width: 0;
+}
+
+.carListItem strong,
+.profileRow strong,
+.valueRow span {
+  display: block;
+  overflow: hidden;
+  color: var(--text);
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.carListItem.selected {
+  border-color: rgba(67, 199, 232, 0.55);
+  background: rgba(67, 199, 232, 0.11);
+}
+
+.carListItem.current:not(.selected) {
+  border-color: rgba(244, 200, 75, 0.28);
+  background: rgba(244, 200, 75, 0.055);
+}
+
+.garageDataBadges,
+.garageSelectedStatus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  min-width: 0;
+}
+
+.garageDataBadges {
+  justify-content: flex-end;
+  max-width: 150px;
+}
+
+.garageDataBadges.empty {
+  width: 0;
+  overflow: hidden;
+}
+
+.garageDataBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 24px;
+  padding: 0 8px;
+  border: 1px solid rgba(67, 199, 232, 0.28);
+  border-radius: 7px;
+  background: rgba(67, 199, 232, 0.1);
+  color: #a8ecff;
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.garageDataBadge.reach {
+  border-color: rgba(244, 200, 75, 0.3);
+  background: rgba(244, 200, 75, 0.1);
+  color: #f6d98e;
+}
+
+.garageDataBadge.large {
+  min-height: 34px;
+  padding: 0 11px;
+  font-size: 12px;
+}
+
+.garageDataBadge.large.missing {
+  border-color: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--muted);
+}
+
+.garageDataBadge.large.saved {
+  border-color: rgba(53, 208, 139, 0.34);
+  background: rgba(53, 208, 139, 0.1);
+  color: var(--green);
+}
+
+.garageDataBadge.large.saved.reach {
+  border-color: rgba(244, 200, 75, 0.34);
+  background: rgba(244, 200, 75, 0.11);
+  color: var(--amber);
+}
+
+.garageSelectedStatus {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.detailGrid,
+.selectionMeta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.detailGrid .stat {
+  min-width: 0;
+}
+
+.detailGrid .datasetStat {
+  grid-column: 1 / -1;
+}
+
+.detailGrid .datasetStat strong {
+  overflow: visible;
+  line-height: 1.18;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.selectionMeta {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.selectionMeta div {
+  min-width: 0;
+  min-height: 58px;
+  padding: 8px 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.selectionMeta span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.selectionMeta strong {
+  display: block;
+  overflow: visible;
+  margin-top: 3px;
+  color: var(--soft);
+  font-size: clamp(12px, 1vw, 14px);
+  font-weight: 800;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.selectionConfirm {
+  display: grid;
+  grid-template-columns: auto minmax(150px, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid rgba(53, 208, 139, 0.32);
+  border-radius: 8px;
+  background: rgba(53, 208, 139, 0.08);
+}
+
+.selectionConfirm > div {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.selectionState {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 9px;
+  border: 1px solid rgba(53, 208, 139, 0.36);
+  border-radius: 7px;
+  background: rgba(53, 208, 139, 0.1);
+  color: #bfffe0;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.selectionState.current {
+  border-color: rgba(244, 200, 75, 0.38);
+  background: rgba(244, 200, 75, 0.1);
+  color: #ffe7a1;
+}
+
+.selectionConfirm .toolButton {
+  min-height: 38px;
+  padding-inline: 13px;
+}
+
+.noticeLine {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 10px;
+  border: 1px solid rgba(67, 199, 232, 0.3);
+  border-radius: 8px;
+  background: rgba(67, 199, 232, 0.08);
+  color: var(--cyan);
+}
+
+.lockedDataNotice {
+  border-color: rgba(244, 200, 75, 0.34);
+  background: rgba(244, 200, 75, 0.08);
+  color: var(--amber);
+}
+
+.tuneView {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 14px;
+}
+
+.tuneLabHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.78fr) 128px auto;
+  align-items: center;
+  gap: 14px;
+  min-height: 112px;
+  padding: 17px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background:
+    linear-gradient(110deg, rgba(255, 61, 87, 0.16), transparent 32%),
+    linear-gradient(280deg, rgba(67, 199, 232, 0.13), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent),
+    rgba(15, 20, 27, 0.96);
+  box-shadow: var(--shadow);
+}
+
+.labIdentity {
+  min-width: 0;
+}
+
+.labIdentity h2 {
+  overflow: hidden;
+  max-width: 680px;
+  font-size: 28px;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.labIdentity p {
+  overflow: hidden;
+  margin: 7px 0 0;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.setupPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 13px;
+}
+
+.setupPills span {
+  min-height: 27px;
+  padding: 6px 10px;
+  border: 1px solid rgba(67, 199, 232, 0.24);
+  border-radius: 7px;
+  background: rgba(67, 199, 232, 0.08);
+  color: var(--soft);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.labMeters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(84px, 1fr));
+  gap: 9px;
+}
+
+.labMeters .stat {
+  min-width: 0;
+  min-height: 58px;
+  background: rgba(8, 10, 14, 0.36);
+}
+
+.labActions {
+  display: grid;
+  gap: 8px;
+}
+
+.labActions .iconButton {
+  justify-content: center;
+  min-width: 108px;
+  min-height: 38px;
+}
+
+.fitBadge {
+  display: grid;
+  gap: 4px;
+  min-height: 72px;
+  align-content: center;
+  padding: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.34);
+}
+
+.fitBadge span {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fitBadge small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.fitBadge strong {
+  color: var(--green);
+  font-size: 26px;
+  line-height: 1;
+}
+
+.fitBadge.warning strong {
+  color: var(--amber);
+}
+
+.tuneWorkbench {
+  display: grid;
+  grid-template-columns: minmax(560px, 640px) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-areas:
+    "tabs output"
+    "panel output";
+  gap: 12px;
+  min-height: 0;
+}
+
+.tunePanelTopBar {
+  grid-area: tabs;
+  display: flex;
+  gap: 7px;
+  min-width: 0;
+  min-height: 0;
+  align-content: start;
+  overflow-x: auto;
+  padding: 8px;
+  border: 1px solid rgba(67, 199, 232, 0.2);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(67, 199, 232, 0.08), transparent 44%),
+    rgba(10, 14, 19, 0.96);
+  box-shadow: var(--shadow);
+}
+
+.tuneTabButton {
+  display: grid;
+  grid-template-rows: auto auto;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  gap: 3px;
+  min-width: 0;
+  min-height: 56px;
+  padding: 7px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.28);
+  color: var(--soft);
+  cursor: pointer;
+  text-align: left;
+}
+
+.tuneTabButton:hover {
+  border-color: rgba(67, 199, 232, 0.34);
+  background: rgba(67, 199, 232, 0.08);
+}
+
+.tuneTabButton.active {
+  border-color: rgba(255, 61, 87, 0.54);
+  background:
+    linear-gradient(135deg, rgba(255, 61, 87, 0.22), rgba(67, 199, 232, 0.08)),
+    rgba(255, 255, 255, 0.045);
+}
+
+.tuneTabButton.active svg {
+  color: var(--pink);
+}
+
+.tuneTabButton svg {
+  color: var(--cyan);
+}
+
+.tuneTabButton span {
+  max-width: 100%;
+  color: var(--text);
+  font-size: 11.2px;
+  font-weight: 850;
+  line-height: 1.15;
+  text-align: center;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.tuneControls {
+  grid-area: panel;
+}
+
+.fineTune {
+  grid-area: panel;
+}
+
+.tuneSummaryPanel {
+  grid-area: panel;
+}
+
+.tuneAssistantPanel {
+  grid-area: panel;
+}
+
+.tuneCalibrationPanel {
+  grid-area: panel;
+}
+
+.tuneOutput {
+  grid-area: output;
+}
+
+.tuneControls,
+.fineTune,
+.tuneAssistantPanel,
+.tuneCalibrationPanel {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.fineTune {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow-y: auto;
+}
+
+.tuneSummaryPanel {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-height: 0;
+  padding: 18px;
+  overflow-y: auto;
+}
+
+.tuneAssistantPanel {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-height: 0;
+  padding: 18px;
+}
+
+.tuneCalibrationPanel {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-height: 0;
+  padding: 18px;
+}
+
+.calibrationNotice {
+  align-items: center;
+}
+
+.dataNotice {
+  align-items: flex-start;
+}
+
+.calibrationSection {
+  border-color: rgba(67, 199, 232, 0.18);
+  background:
+    linear-gradient(135deg, rgba(67, 199, 232, 0.07), transparent 58%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.aeroCalibrationSection {
+  border-color: rgba(53, 208, 139, 0.22);
+  background:
+    linear-gradient(135deg, rgba(53, 208, 139, 0.08), transparent 58%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.dataSection {
+  border-color: rgba(67, 199, 232, 0.22);
+  background:
+    linear-gradient(135deg, rgba(67, 199, 232, 0.08), transparent 58%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.dataSnapshotGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.dataSnapshotGrid .stat {
+  min-width: 0;
+  min-height: 62px;
+  background: rgba(8, 10, 14, 0.28);
+}
+
+.dataSnapshotGrid .stat strong {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.dataWorkflow {
+  display: grid;
+  gap: 8px;
+}
+
+.dataWorkflow > div {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 9px;
+  min-width: 0;
+  padding: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: 8px;
+  background: rgba(5, 7, 11, 0.26);
+}
+
+.dataWorkflow b {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 6px;
+  background: rgba(67, 199, 232, 0.16);
+  color: var(--cyan);
+  font-size: 12px;
+}
+
+.dataWorkflow span {
+  color: var(--soft);
+  font-size: 11px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.fineTune .panelHeader,
+.fineTune .feelSummary,
+.fineTune .actionGrid,
+.fineTune .fh6VerificationStrip,
+.fineTune .noticeLine {
+  grid-column: 1 / -1;
+}
+
+.controlSection {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.controlSection:first-of-type {
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.075);
+}
+
+.limitSection {
+  border-color: rgba(67, 199, 232, 0.18);
+  background:
+    linear-gradient(135deg, rgba(67, 199, 232, 0.07), transparent 58%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.upgradeSection {
+  border-color: rgba(53, 208, 139, 0.2);
+  background:
+    linear-gradient(135deg, rgba(53, 208, 139, 0.08), transparent 58%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.upgradeSection .sectionTitle span {
+  max-width: 215px;
+  white-space: normal;
+}
+
+.upgradeSection > .toolButton {
+  min-height: 36px;
+}
+
+.advisorSection {
+  border-color: rgba(244, 200, 75, 0.22);
+  background:
+    linear-gradient(135deg, rgba(244, 200, 75, 0.07), transparent 58%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.advisorPiGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.advisorPiGrid > div,
+.advisorStatus,
+.advisorChangeList {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.25);
+}
+
+.advisorPiGrid span,
+.advisorStatus span,
+.advisorChangeList span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.advisorStatus {
+  border-color: rgba(67, 199, 232, 0.24);
+}
+
+.advisorStatus strong {
+  color: var(--cyan);
+  font-size: 14px;
+}
+
+.advisorStatus.success {
+  border-color: rgba(53, 208, 139, 0.32);
+}
+
+.advisorStatus.success strong {
+  color: var(--green);
+}
+
+.advisorStatus.warning {
+  border-color: rgba(244, 200, 75, 0.36);
+}
+
+.advisorStatus.warning strong {
+  color: var(--amber);
+}
+
+.advisorChangeList {
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.advisorChangeList span {
+  display: grid;
+  grid-template-columns: minmax(92px, 0.42fr) minmax(0, 1fr);
+  gap: 8px;
+  line-height: 1.35;
+}
+
+.advisorChangeList b {
+  color: var(--soft);
+}
+
+.advisorInstallPlan {
+  display: grid;
+  gap: 9px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid rgba(53, 208, 139, 0.2);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(53, 208, 139, 0.08), transparent 62%),
+    rgba(8, 10, 14, 0.25);
+}
+
+.advisorInstallList {
+  display: grid;
+  gap: 8px;
+}
+
+.advisorInstallStep {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 9px;
+  min-width: 0;
+  padding: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(5, 7, 11, 0.28);
+}
+
+.advisorInstallStep > b {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 6px;
+  background: rgba(53, 208, 139, 0.16);
+  color: var(--green);
+  font-size: 12px;
+}
+
+.advisorInstallStep div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.advisorInstallStep strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.advisorInstallStep span,
+.advisorInstallStep em,
+.advisorInstallStep small,
+.advisorInstallEmpty {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.advisorInstallStep em {
+  color: var(--green);
+  font-style: normal;
+  font-weight: 800;
+}
+
+.advisorInstallStep small {
+  color: var(--soft);
+}
+
+.advisorInstallEmpty {
+  padding: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(5, 7, 11, 0.24);
+}
+
+.assistantNotice {
+  align-items: center;
+}
+
+.assistantTargetSection {
+  border-color: rgba(67, 199, 232, 0.22);
+  background:
+    linear-gradient(135deg, rgba(67, 199, 232, 0.08), transparent 58%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.assistantPrioritySection {
+  border-color: rgba(244, 200, 75, 0.22);
+  background:
+    linear-gradient(135deg, rgba(244, 200, 75, 0.07), transparent 58%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.assistantCheckSection {
+  border-color: rgba(53, 208, 139, 0.22);
+  background:
+    linear-gradient(135deg, rgba(53, 208, 139, 0.08), transparent 58%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.assistantOverview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.assistantOverview > div,
+.assistantCheck,
+.assistantStep {
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.25);
+}
+
+.assistantOverview > div {
+  display: grid;
+  gap: 7px;
+  padding: 10px;
+}
+
+.assistantOverview span,
+.assistantCheck span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.assistantOverview strong,
+.assistantCheck strong {
+  color: var(--soft);
+  font-size: 14px;
+}
+
+.assistantOverview .success strong,
+.assistantCheck.success strong {
+  color: var(--green);
+}
+
+.assistantOverview .warning strong,
+.assistantCheck.warning strong {
+  color: var(--amber);
+}
+
+.assistantStepList,
+.assistantCheckGrid {
+  display: grid;
+  gap: 8px;
+}
+
+.assistantCheckGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.assistantStep {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) minmax(72px, auto);
+  align-items: start;
+  gap: 8px;
+  padding: 9px;
+}
+
+.assistantStep.active {
+  border-color: rgba(244, 200, 75, 0.34);
+}
+
+.assistantStep > span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 6px;
+  background: rgba(67, 199, 232, 0.16);
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.assistantStep div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.assistantStep strong {
+  display: block;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.assistantStep small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.assistantStep b {
+  align-self: center;
+  color: var(--amber);
+  font-size: 13px;
+  justify-self: end;
+  line-height: 1.25;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.assistantCheck {
+  display: grid;
+  gap: 5px;
+  padding: 9px;
+}
+
+.assistantCheck.success {
+  border-color: rgba(53, 208, 139, 0.28);
+}
+
+.assistantCheck.warning {
+  border-color: rgba(244, 200, 75, 0.3);
+}
+
+.assistantTargetSection .segment {
+  flex-basis: 42px;
+  min-width: 42px;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sectionTitle.stackedSectionTitle {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+}
+
+.sectionTitle strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.sectionTitle span {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sectionTitle.stackedSectionTitle span {
+  overflow: visible;
+  max-width: none;
+  line-height: 1.35;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.field,
+.segmentedGroup,
+.sliderControl {
+  display: grid;
+  gap: 7px;
+}
+
+.field input,
+.numberInput,
+.segmented {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.32);
+}
+
+.field input {
+  height: 40px;
+  padding: 0 12px;
+  color: var(--text);
+  outline: none;
+}
+
+.field input:focus-within,
+.numberInput:focus-within,
+.segmented:focus-within,
+.searchBox:focus-within {
+  border-color: rgba(67, 199, 232, 0.62);
+  box-shadow: 0 0 0 3px rgba(67, 199, 232, 0.1);
+}
+
+.field.invalid input,
+.field.invalid .numberInput {
+  border-color: rgba(255, 61, 87, 0.55);
+  box-shadow: 0 0 0 3px rgba(255, 61, 87, 0.08);
+}
+
+.fieldHint {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.numberInput {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.numberInput input {
+  min-width: 0;
+  border: 0;
+  background: transparent;
+}
+
+.numberInput em {
+  flex: 0 0 58px;
+  min-width: 58px;
+  padding-right: 9px;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-style: normal;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.twoColumn {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.segmented {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: visible;
+  gap: 3px;
+  padding: 3px;
+}
+
+.segment {
+  flex: 1 1 56px;
+  min-width: 56px;
+  min-height: 32px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--soft);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.12;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  padding: 0 6px;
+  white-space: normal;
+}
+
+.segment.active {
+  background: linear-gradient(135deg, var(--red), #d76178);
+  color: #fff;
+  font-weight: 800;
+}
+
+.toggleRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.toggleField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.32);
+}
+
+.toggleField input {
+  width: 42px;
+  height: 22px;
+  accent-color: var(--green);
+}
+
+.tuneOutput {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(15, 20, 27, 0.96);
+  box-shadow: var(--shadow);
+}
+
+.tuneHero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  background:
+    linear-gradient(90deg, rgba(67, 199, 232, 0.08), transparent 52%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.tuneHero h2 {
+  font-size: 24px;
+  line-height: 1.14;
+  overflow-wrap: anywhere;
+}
+
+.tuneHero p {
+  max-width: 760px;
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.sheetMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.sheetMeta span {
+  min-height: 30px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.28);
+  color: var(--soft);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fh6VerificationStrip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.fh6VerificationStrip.compact {
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+}
+
+.verificationCard {
+  display: grid;
+  min-width: 0;
+  min-height: 44px;
+  align-content: center;
+  gap: 3px;
+  padding: 8px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.26);
+}
+
+.verificationCard span {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.verificationCard strong {
+  overflow: visible;
+  color: var(--soft);
+  font-size: 12px;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.verificationCard.success {
+  border-color: rgba(53, 208, 139, 0.24);
+  background: rgba(53, 208, 139, 0.055);
+}
+
+.verificationCard.success strong {
+  color: var(--green);
+}
+
+.verificationCard.warning {
+  border-color: rgba(244, 200, 75, 0.26);
+  background: rgba(244, 200, 75, 0.055);
+}
+
+.verificationCard.warning strong {
+  color: var(--amber);
+}
+
+.formulaStrip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  padding: 10px 12px 0;
+}
+
+.formulaStrip > div {
+  display: grid;
+  min-width: 0;
+  min-height: 46px;
+  align-content: center;
+  gap: 4px;
+  padding: 9px 11px;
+  border: 1px solid rgba(67, 199, 232, 0.18);
+  border-radius: 8px;
+  background: rgba(67, 199, 232, 0.045);
+}
+
+.formulaStrip span {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.formulaStrip strong {
+  color: var(--cyan);
+  font-size: 14px;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.tuneDigest,
+.summaryHighlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 14px 14px 0;
+}
+
+.summaryHighlights {
+  grid-template-columns: 1fr;
+  padding: 0;
+}
+
+.digestCard {
+  min-width: 0;
+  min-height: 72px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(244, 200, 75, 0.08), transparent 58%),
+    rgba(8, 10, 14, 0.3);
+}
+
+.digestCard span,
+.digestCard small {
+  display: block;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.digestCard strong {
+  display: block;
+  margin: 6px 0 4px;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.tuneFitList {
+  grid-template-columns: repeat(auto-fit, minmax(154px, 1fr));
+  gap: 7px;
+  padding: 12px 14px 0;
+}
+
+.tuneFitList .fitItem {
+  min-height: 34px;
+  padding: 7px 9px;
+  background: rgba(53, 208, 139, 0.045);
+}
+
+.summaryScore {
+  display: grid;
+  gap: 5px;
+  min-height: 96px;
+  align-content: center;
+  padding: 14px;
+  border: 1px solid rgba(53, 208, 139, 0.32);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(53, 208, 139, 0.12), transparent 62%),
+    rgba(53, 208, 139, 0.06);
+}
+
+.summaryScore.warning {
+  border-color: rgba(244, 200, 75, 0.35);
+  background:
+    linear-gradient(135deg, rgba(244, 200, 75, 0.12), transparent 62%),
+    rgba(244, 200, 75, 0.055);
+}
+
+.summaryScore span,
+.summaryScore small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.summaryScore strong {
+  color: var(--green);
+  font-size: 34px;
+  line-height: 1;
+}
+
+.summaryScore.warning strong {
+  color: var(--amber);
+}
+
+.summaryStats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.summaryStats .stat {
+  min-width: 0;
+}
+
+.summaryStats .stat:first-child {
+  grid-column: 1 / -1;
+}
+
+.summaryFitList {
+  gap: 7px;
+}
+
+.summaryFitList .fitItem {
+  min-height: 34px;
+  padding: 7px 9px;
+}
+
+.summaryNotice {
+  max-height: none;
+  overflow: visible;
+}
+
+.summaryNotice span {
+  min-width: 0;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.tuneGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  align-items: start;
+  gap: 10px;
+  min-height: 0;
+  overflow: visible;
+  padding: 10px 12px 12px;
+  background: transparent;
+}
+
+.tuneMasonryColumn {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.tuneSection {
+  align-self: start;
+  display: grid;
+  width: 100%;
+  min-height: auto;
+  padding: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(67, 199, 232, 0.075), transparent 34%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.tuneSection h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 24px;
+  margin-bottom: 8px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.075);
+  color: var(--cyan);
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.tuneSection h3 span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tuneSection h3 small {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  text-align: right;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.valueList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 7px;
+}
+
+.section-gearing .valueList,
+.section-diff .valueList {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.valueRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
+  min-height: 58px;
+  padding: 8px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.25);
+}
+
+.valueRow div {
+  min-width: 0;
+}
+
+.valueRow strong {
+  flex: 0 0 auto;
+  margin-top: 6px;
+  color: var(--amber);
+  font-size: 15px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.valueRow.input-requiresUpgrade {
+  border-color: rgba(244, 200, 75, 0.28);
+  background:
+    linear-gradient(90deg, rgba(244, 200, 75, 0.08), transparent 42%),
+    rgba(8, 10, 14, 0.25);
+}
+
+.valueRow.input-requiresUpgrade strong,
+.valueRow.input-requiresUpgrade .valueInstruction b {
+  color: var(--amber);
+}
+
+.valueInstruction {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px;
+  margin-top: 5px;
+  color: var(--soft);
+  line-height: 1.3;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.valueInstruction b {
+  color: var(--cyan);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.valueInstruction span {
+  overflow: visible;
+  color: var(--muted);
+  font-size: 11px;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.valueFormula {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px;
+  margin-top: 5px;
+  color: var(--soft);
+  line-height: 1.3;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.valueFormula b {
+  color: var(--green);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.valueFormula span {
+  overflow: visible;
+  color: var(--muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.section-aero .valueRow {
+  border-color: rgba(67, 199, 232, 0.22);
+  background:
+    linear-gradient(90deg, rgba(67, 199, 232, 0.08), transparent 42%),
+    rgba(8, 10, 14, 0.25);
+}
+
+.section-aero .valueRow strong {
+  color: var(--cyan);
+}
+
+.sliderControl {
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.sliderTop,
+.sliderScale {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sliderTop b {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.sliderTop em {
+  display: grid;
+  min-width: 34px;
+  height: 24px;
+  place-items: center;
+  border-radius: 6px;
+  background: rgba(244, 200, 75, 0.13);
+  color: var(--amber);
+  font-style: normal;
+}
+
+.sliderControl input {
+  width: 100%;
+  accent-color: var(--red);
+}
+
+.actionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.feelSummary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.feelSummary div {
+  min-height: 66px;
+  padding: 12px;
+  border: 1px solid rgba(244, 200, 75, 0.22);
+  border-radius: 8px;
+  background: rgba(244, 200, 75, 0.055);
+}
+
+.feelSummary span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.feelSummary strong {
+  display: block;
+  margin-top: 6px;
+  overflow: hidden;
+  color: var(--amber);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fitList {
+  display: grid;
+  gap: 8px;
+}
+
+.fitItem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  padding: 9px 10px;
+  border: 1px solid rgba(53, 208, 139, 0.2);
+  border-radius: 8px;
+  background: rgba(53, 208, 139, 0.055);
+}
+
+.fitItem.warning {
+  border-color: rgba(244, 200, 75, 0.28);
+  background: rgba(244, 200, 75, 0.06);
+}
+
+.fitItem span {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fitItem strong {
+  color: var(--green);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.fitItem.warning strong {
+  color: var(--amber);
+}
+
+.dataHubView {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "hero"
+    "topbar"
+    "content";
+  grid-auto-rows: max-content;
+  gap: 16px;
+  align-content: start;
+  align-items: start;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+.dataHubHero,
+.dataHubTopBar,
+.dataHubCapture,
+.dataHubCurrent,
+.dataHubEditor,
+.dataHubReach,
+.dataHubWorkflowPanel,
+.dataHubLibrary {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding: 18px;
+}
+
+.dataHubHero {
+  grid-area: hero;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 560px);
+  align-items: center;
+  background:
+    linear-gradient(135deg, rgba(67, 199, 232, 0.13), transparent 42%),
+    linear-gradient(315deg, rgba(53, 208, 139, 0.1), transparent 48%),
+    rgba(19, 25, 34, 0.94);
+}
+
+.dataHeroCopy {
+  min-width: 0;
+}
+
+.dataHeroCopy h2 {
+  font-size: 30px;
+  line-height: 1.08;
+}
+
+.dataHeroCopy p,
+.panelCopy {
+  max-width: 780px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.dataHubCurrent {
+  grid-area: content;
+}
+
+.dataHubCapture {
+  grid-area: content;
+}
+
+.dataHubTopBar {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  grid-area: topbar;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(67, 199, 232, 0.2);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(67, 199, 232, 0.08), transparent 44%),
+    rgba(10, 14, 19, 0.96);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.24);
+}
+
+.dataHubTopBar button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 42px;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--soft);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.dataHubTopBar button:hover {
+  border-color: rgba(67, 199, 232, 0.38);
+  background: rgba(67, 199, 232, 0.1);
+  color: var(--text);
+}
+
+.dataHubTopBar button.active {
+  border-color: rgba(255, 61, 87, 0.5);
+  background:
+    linear-gradient(135deg, rgba(255, 61, 87, 0.22), rgba(67, 199, 232, 0.08)),
+    rgba(255, 255, 255, 0.055);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.dataHubTopBar button.active svg {
+  color: var(--pink);
+}
+
+.dataHubTopBar svg {
+  flex: 0 0 auto;
+  color: var(--cyan);
+}
+
+.dataHubTopBar span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.15;
+}
+
+.dataHubEditor {
+  grid-area: content;
+}
+
+.dataHubWorkflowPanel {
+  grid-area: content;
+}
+
+.dataHubInfoPanel {
+  max-width: 980px;
+}
+
+.compactWorkflowSteps {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.compactWorkflowSteps div {
+  min-height: 64px;
+}
+
+.singleDataAction {
+  grid-template-columns: minmax(220px, 360px);
+}
+
+.dataHubReach {
+  grid-area: content;
+}
+
+.dataHubLibrary {
+  grid-area: content;
+  min-height: 0;
+}
+
+.dataHubStatGrid,
+.dataHubStatusGrid,
+.dataHubActionGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.dataHubStatGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.dataHubStatusGrid,
+.dataHubActionGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.stickyDataActions {
+  position: sticky;
+  bottom: -1px;
+  z-index: 2;
+  margin-top: 2px;
+  padding-top: 10px;
+  background: linear-gradient(180deg, transparent, rgba(19, 25, 34, 0.98) 32%);
+}
+
+.dataStatusCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid rgba(244, 200, 75, 0.3);
+  border-radius: 8px;
+  background: rgba(244, 200, 75, 0.07);
+  color: var(--amber);
+}
+
+.dataStatusCard.ready {
+  border-color: rgba(53, 208, 139, 0.34);
+  background: rgba(53, 208, 139, 0.1);
+  color: var(--green);
+}
+
+.dataStatusCard strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.dataSaveNotice {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 1px solid rgba(53, 208, 139, 0.34);
+  border-radius: 8px;
+  background: rgba(53, 208, 139, 0.1);
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.captureWizardGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.captureStep {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(67, 199, 232, 0.075), transparent 46%),
+    rgba(8, 10, 14, 0.28);
+}
+
+.captureStep.ready {
+  border-color: rgba(53, 208, 139, 0.28);
+  background:
+    linear-gradient(90deg, rgba(53, 208, 139, 0.085), transparent 46%),
+    rgba(8, 10, 14, 0.28);
+}
+
+.captureStep.optional {
+  border-color: rgba(244, 200, 75, 0.32);
+  background:
+    linear-gradient(90deg, rgba(244, 200, 75, 0.085), transparent 46%),
+    rgba(8, 10, 14, 0.28);
+}
+
+.captureStep b {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(67, 199, 232, 0.16);
+  color: var(--cyan);
+  font-size: 13px;
+}
+
+.captureStep.ready b {
+  background: rgba(53, 208, 139, 0.18);
+  color: var(--green);
+}
+
+.captureStep.optional b {
+  background: rgba(244, 200, 75, 0.16);
+  color: var(--amber);
+}
+
+.captureStep div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.captureStep strong,
+.captureStep span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.captureStep span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.38;
+}
+
+.captureStep em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 850;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.captureStep.ready em {
+  color: var(--green);
+}
+
+.captureStep.optional em {
+  color: var(--amber);
+}
+
+.captureWizardSummary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.dataHubList {
+  display: grid;
+  gap: 10px;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.dataVehicleRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(330px, 460px);
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(67, 199, 232, 0.07), transparent 54%),
+    rgba(5, 7, 11, 0.24);
+}
+
+.dataVehicleMain,
+.dataVehicleBadges,
+.dataVehicleActions {
+  min-width: 0;
+}
+
+.dataVehicleMain {
+  display: grid;
+  gap: 4px;
+}
+
+.dataVehicleMain strong,
+.dataVehicleMain span {
+  overflow-wrap: anywhere;
+}
+
+.dataVehicleMain span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.dataVehicleBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.miniStatus {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 9px;
+  border: 1px solid rgba(244, 200, 75, 0.28);
+  border-radius: 6px;
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.dataVehicleActions {
+  display: grid;
+  grid-template-columns: minmax(92px, 0.72fr) minmax(150px, 1fr) 42px;
+  gap: 8px;
+}
+
+.setupView {
+  grid-template-columns: minmax(560px, 780px);
+  align-content: start;
+}
+
+.profileList {
+  display: grid;
+  gap: 9px;
+}
+
+.emptyState {
+  display: grid;
+  min-height: 120px;
+  place-items: center;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+}
+
+.profileRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 8px;
+}
+
+.profileRow button {
+  min-width: 0;
+  min-height: 54px;
+  color: var(--text);
+  text-align: left;
+}
+
+.profileRow > button:first-child {
+  padding: 8px 12px;
+}
+
+.deleteButton {
+  display: grid;
+  place-items: center;
+  color: var(--red);
+}
+
+.settingsView {
+  grid-template-columns: minmax(460px, 720px) minmax(360px, 540px);
+  grid-template-areas:
+    "system data"
+    "system credits";
+  grid-auto-rows: max-content;
+  align-content: start;
+  align-items: start;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+.settingsPanel {
+  overflow: visible;
+}
+
+.systemSettingsPanel {
+  grid-area: system;
+}
+
+.dataSettingsPanel {
+  grid-area: data;
+}
+
+.creditsPanel {
+  grid-area: credits;
+}
+
+.settingsGrid {
+  display: grid;
+  gap: 9px;
+}
+
+.settingsChoiceRow {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.25);
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.settingsChoiceRow.open {
+  border-color: rgba(67, 199, 232, 0.36);
+  background: rgba(12, 19, 25, 0.72);
+}
+
+.settingsChoiceTrigger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 18px;
+  align-items: center;
+  width: 100%;
+  min-height: 46px;
+  gap: 12px;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.settingsChoiceTrigger span {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.settingsChoiceTrigger strong {
+  justify-self: end;
+  color: var(--soft);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.settingsChoiceTrigger svg {
+  color: var(--cyan);
+  transition: transform 160ms ease;
+}
+
+.settingsChoiceRow.open .settingsChoiceTrigger svg {
+  transform: rotate(180deg);
+}
+
+.settingsChoiceMenu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 7px;
+  padding: 0 10px 10px;
+}
+
+.settingsChoiceOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 34px;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--soft);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.settingsChoiceOption span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.settingsChoiceOption.active {
+  border-color: rgba(255, 61, 87, 0.52);
+  background: linear-gradient(135deg, var(--red), #b26070);
+  color: #fff;
+}
+
+.settingsChoiceOption.active svg {
+  flex: 0 0 auto;
+}
+
+.settingsActions {
+  display: grid;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+.settingsActions > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.settingsActions .toolButton {
+  width: 100%;
+}
+
+.settingsStatus {
+  min-height: 36px;
+  padding: 9px 11px;
+  border: 1px solid rgba(53, 208, 139, 0.28);
+  border-radius: 8px;
+  background: rgba(53, 208, 139, 0.07);
+  color: var(--soft);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.settingsStatus.dirty {
+  border-color: rgba(244, 200, 75, 0.42);
+  background: rgba(244, 200, 75, 0.08);
+  color: var(--amber);
+  font-weight: 750;
+}
+
+.updatesView {
+  grid-template-columns: minmax(520px, 880px);
+  align-content: start;
+  justify-content: start;
+  overflow-y: auto;
+  padding: 22px;
+}
+
+.updatesPanel {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding: 22px;
+}
+
+.updatesPanel .panelHeader {
+  align-items: flex-start;
+  padding-bottom: 2px;
+}
+
+.updatesPanel .panelHeader h3 {
+  margin-top: 3px;
+  font-size: 20px;
+}
+
+.updatesPanel .panelCopy {
+  max-width: 640px;
+  margin-top: 4px;
+}
+
+.updateVersionGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.updateVersionGrid .stat {
+  min-height: 72px;
+  padding: 13px 14px;
+}
+
+.updateCheckButton {
+  min-height: 46px;
+  margin-top: 2px;
+}
+
+.updateCheckButton:disabled svg {
+  animation: spin 900ms linear infinite;
+}
+
+.updateStatusCard,
+.releaseNotesBox {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(8, 10, 14, 0.26);
+}
+
+.updateStatusCard strong {
+  color: var(--text);
+  font-size: 16px;
+}
+
+.updateStatusCard span,
+.releaseNotesBox span,
+.releaseNotesBox p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.updateStatusCard.success {
+  border-color: rgba(53, 208, 139, 0.38);
+  background: rgba(53, 208, 139, 0.09);
+}
+
+.updateStatusCard.warning {
+  border-color: rgba(244, 200, 75, 0.46);
+  background: rgba(244, 200, 75, 0.09);
+}
+
+.updateStatusCard.warning strong {
+  color: var(--amber);
+}
+
+.updateStatusCard.danger {
+  border-color: rgba(255, 61, 87, 0.48);
+  background: rgba(255, 61, 87, 0.09);
+}
+
+.updateStatusCard.danger strong {
+  color: var(--red);
+}
+
+.releaseNotesBox {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.releaseNotesBox > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.releaseNotesBox strong {
+  color: var(--text);
+}
+
+.releaseNotesBox p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.updateActions {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr);
+  gap: 12px;
+}
+
+.updateActions .toolButton {
+  min-height: 44px;
+  color: var(--soft);
+  text-decoration: none;
+}
+
+.supportBox {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 230px);
+  gap: 14px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid rgba(244, 200, 75, 0.28);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(244, 200, 75, 0.09), rgba(67, 199, 232, 0.055)),
+    rgba(8, 10, 14, 0.25);
+}
+
+.supportBox > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.supportBox svg {
+  flex: 0 0 auto;
+  color: var(--amber);
+}
+
+.supportBox strong,
+.supportBox span {
+  display: block;
+  min-width: 0;
+}
+
+.supportBox strong {
+  color: var(--text);
+  font-size: 15px;
+}
+
+.supportBox span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.supportButton {
+  min-height: 42px;
+  border-color: rgba(244, 200, 75, 0.42);
+  background: rgba(244, 200, 75, 0.12);
+  color: var(--soft);
+  text-decoration: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.linkRow {
+  flex-wrap: wrap;
+}
+
+.linkRow a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--soft);
+  text-decoration: none;
+}
+
+.creditsPanel {
+  gap: 14px;
+}
+
+.creditCopy {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.creditCopy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.density-compact .view {
+  padding: 12px;
+}
+
+.density-compact .carBrowser,
+.density-compact .detailPanel,
+.density-compact .settingsPanel,
+.density-compact .tuneControls,
+.density-compact .fineTune,
+.density-compact .tuneSummaryPanel,
+.density-compact .tuneCalibrationPanel,
+.density-compact .setupView > .panel {
+  gap: 10px;
+  padding: 14px;
+}
+
+.density-compact .carListItem,
+.density-compact .profileRow button {
+  min-height: 48px;
+}
+
+.garage-density-compact .garageView {
+  grid-template-rows: 148px minmax(0, 1fr);
+}
+
+.garage-density-compact .heroBand {
+  padding: 18px;
+}
+
+.garage-density-compact .heroBand h2 {
+  font-size: 28px;
+}
+
+.garage-density-compact .carBrowser,
+.garage-density-compact .detailPanel {
+  gap: 10px;
+  padding: 14px;
+}
+
+.garage-density-compact .classFilter {
+  gap: 5px;
+}
+
+.garage-density-compact .chip {
+  min-height: 30px;
+}
+
+.garage-density-compact .carList {
+  gap: 5px;
+}
+
+.garage-density-compact .carListItem {
+  grid-template-columns: minmax(0, 1fr) auto 66px;
+  gap: 9px;
+  min-height: 44px;
+  padding: 7px 8px;
+}
+
+.garage-density-compact .carListItem strong {
+  font-size: 13px;
+}
+
+.garage-density-compact .carListItem small {
+  font-size: 10.5px;
+}
+
+.garage-density-compact .carListItem .piBadge {
+  width: 66px;
+  height: 27px;
+  font-size: 13px;
+}
+
+.garage-density-compact .garageDataBadges {
+  gap: 4px;
+  max-width: 98px;
+}
+
+.garage-density-compact .garageDataBadge {
+  min-height: 22px;
+  padding: 0 6px;
+  font-size: 10px;
+}
+
+.garage-density-compact .selectionMeta {
+  gap: 6px;
+}
+
+.garage-density-compact .selectionMeta div {
+  min-height: 50px;
+  padding: 7px 8px;
+}
+
+.garage-density-compact .selectionConfirm {
+  padding: 8px;
+}
+
+@media (max-width: 1320px) {
+  .quickStats .stat {
+    min-width: 82px;
+  }
+
+  .settingsView {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: none;
+  }
+
+  .systemSettingsPanel,
+  .dataSettingsPanel,
+  .creditsPanel {
+    grid-area: auto;
+  }
+
+  .tuneLabHeader {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+    align-items: stretch;
+    min-height: auto;
+  }
+
+  .fitBadge {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    min-height: 54px;
+  }
+
+  .labActions {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tuneView {
+    align-content: start;
+    grid-template-rows: auto auto;
+    overflow-y: auto;
+    padding-right: 12px;
+  }
+
+  .tuneWorkbench {
+    grid-template-columns: minmax(460px, 520px) minmax(0, 1fr);
+    grid-template-areas:
+      "tabs output"
+      "panel output";
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 12px;
+    min-height: 0;
+  }
+
+  .tuneControls,
+  .fineTune,
+  .tuneAssistantPanel,
+  .tuneSummaryPanel,
+  .tuneCalibrationPanel {
+    max-height: none;
+    overflow-y: auto;
+  }
+
+  .tuneOutput {
+    min-height: 0;
+  }
+
+  .fineTune {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .labMeters {
+    grid-template-columns: repeat(2, minmax(96px, 1fr));
+  }
+
+  .tuneGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroBand h2 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 1160px) {
+  .appShell {
+    grid-template-columns: 86px minmax(0, 1fr);
+  }
+
+  .sidebar {
+    gap: 10px;
+    padding: 10px 8px;
+  }
+
+  .brandBlock {
+    justify-content: center;
+    padding: 6px 0 12px;
+  }
+
+  .brandBlock > div:last-child,
+  .navItem span,
+  .sideStack,
+  .sourcePanel {
+    display: none;
+  }
+
+  .brandMark {
+    width: 46px;
+    height: 46px;
+  }
+
+  .sideNav {
+    gap: 8px;
+  }
+
+  .navItem {
+    justify-content: center;
+    min-height: 48px;
+    padding: 0;
+  }
+
+  .navItem svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .commandBar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    min-height: 96px;
+    padding: calc(var(--window-controls-height) + 8px) calc(14px + var(--window-controls-width)) 12px 16px;
+  }
+
+  .quickStats {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .quickStats .stat {
+    min-width: 76px;
+    min-height: 50px;
+    padding: 7px 9px;
+  }
+
+  .quickStats .stat strong {
+    font-size: 16px;
+  }
+
+  .commandActions {
+    grid-column: 1 / -1;
+  }
+
+  .commandActions .iconButton {
+    flex: 1 1 0;
+  }
+
+  .view {
+    padding: 12px;
+  }
+
+  .dataVehicleRow {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .dataVehicleBadges {
+    justify-content: flex-start;
+  }
+
+  .dataVehicleActions {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) 42px;
+  }
+
+  .updatesView {
+    grid-template-columns: minmax(0, 820px);
+    padding: 14px;
+  }
+
+  .updatesPanel {
+    padding: 18px;
+  }
+
+  .tuneLabHeader {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .labIdentity h2,
+  .labIdentity p {
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+  }
+
+  .labMeters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fitBadge,
+  .labActions {
+    grid-column: auto;
+  }
+
+  .tuneWorkbench {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "tabs"
+      "panel"
+      "output";
+    grid-template-rows: auto auto auto;
+    min-height: auto;
+  }
+
+  .tunePanelTopBar {
+    padding: 6px;
+  }
+
+  .tuneTabButton {
+    flex: 0 0 104px;
+    min-height: 52px;
+  }
+
+  .tuneControls,
+  .fineTune,
+  .tuneAssistantPanel,
+  .tuneSummaryPanel,
+  .tuneCalibrationPanel {
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .tuneOutput {
+    min-height: 0;
+  }
+
+  .tuneHero {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .sheetMeta {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 980px) {
+  .tuneWorkbench {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "tabs"
+      "panel"
+      "output";
+    grid-template-rows: auto auto auto;
+    min-height: auto;
+  }
+
+  .tunePanelTopBar {
+    flex-wrap: wrap;
+  }
+
+  .tuneTabButton {
+    flex-basis: 92px;
+    min-height: 54px;
+  }
+
+  .tuneOutput {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .appShell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .sidebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 64px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brandBlock {
+    display: none;
+  }
+
+  .sideNav {
+    display: flex;
+    flex: 1 0 auto;
+    gap: 8px;
+  }
+
+  .navItem {
+    flex: 1 0 52px;
+  }
+
+  .commandBar {
+    grid-template-columns: minmax(0, 1fr);
+    padding: calc(var(--window-controls-height) + 8px) calc(12px + var(--window-controls-width)) 10px 12px;
+  }
+
+  .quickStats,
+  .commandActions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .quickStats .stat,
+  .commandActions .iconButton {
+    flex: 1 1 0;
+  }
+
+  .labMeters,
+  .labActions,
+  .fineTune,
+  .fh6VerificationStrip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tuneTabButton {
+    flex-basis: 96px;
+  }
+
+  .updatesView {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 10px;
+  }
+
+  .updatesPanel {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .updatesPanel .panelHeader {
+    gap: 10px;
+  }
+
+  .updateVersionGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .releaseNotesBox > div {
+    display: grid;
+    gap: 4px;
+  }
+
+  .supportBox {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 900px), (max-aspect-ratio: 3 / 4) {
+  .appShell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .sidebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 68px;
+    max-height: 78px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 8px 10px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brandBlock {
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: center;
+    padding: 0 10px 0 0;
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
+  }
+
+  .brandBlock > div:last-child,
+  .sideStack,
+  .sourcePanel {
+    display: none;
+  }
+
+  .brandMark {
+    width: 42px;
+    height: 42px;
+  }
+
+  .sideNav {
+    display: flex;
+    flex: 1 0 auto;
+    gap: 8px;
+    min-width: max-content;
+  }
+
+  .navItem {
+    flex: 0 0 118px;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 10px;
+  }
+
+  .navItem span {
+    display: inline;
+    overflow: hidden;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .navItem svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .mainStage {
+    overflow: hidden;
+  }
+
+  .commandBar {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    min-height: auto;
+    padding: calc(var(--window-controls-height) + 8px) calc(10px + var(--window-controls-width)) 10px 12px;
+  }
+
+  .currentCar h1 {
+    overflow: visible;
+    font-size: clamp(20px, 4vw, 28px);
+    text-overflow: clip;
+    white-space: normal;
+  }
+
+  .quickStats {
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .quickStats .stat {
+    flex: 0 0 104px;
+    min-width: 104px;
+  }
+
+  .commandActions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .commandActions .iconButton {
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .view {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 10px;
+  }
+
+  .garageView {
+    grid-template-rows: auto auto;
+  }
+
+  .heroBand {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    min-height: 150px;
+    padding: 16px;
+  }
+
+  .heroBand h2 {
+    max-width: none;
+    font-size: clamp(24px, 5vw, 34px);
+    overflow-wrap: anywhere;
+  }
+
+  .heroStats {
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .garageLayout,
+  .setupView,
+  .settingsView,
+  .updatesView,
+  .dataHubHero,
+  .dataVehicleRow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .settingsView {
+    grid-template-areas: none;
+    padding-right: 0;
+  }
+
+  .systemSettingsPanel,
+  .dataSettingsPanel,
+  .creditsPanel {
+    grid-area: auto;
+  }
+
+  .updatesView {
+    justify-content: stretch;
+    padding: 10px;
+  }
+
+  .updatesPanel {
+    padding: 14px;
+  }
+
+  .detailPanel {
+    align-self: stretch;
+  }
+
+  .detailGrid,
+  .selectionMeta,
+  .dataSnapshotGrid,
+  .captureWizardSummary,
+  .dataHubStatGrid,
+  .dataHubStatusGrid,
+  .dataHubActionGrid,
+  .advisorPiGrid,
+  .assistantCheckGrid,
+  .twoColumn,
+  .toggleRow,
+  .actionGrid,
+  .feelSummary,
+  .summaryStats,
+  .updateVersionGrid,
+  .supportBox {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .selectionConfirm {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dataHubView {
+    padding-right: 0;
+  }
+
+  .dataHubHero {
+    padding: 14px;
+  }
+
+  .dataHeroCopy h2 {
+    font-size: clamp(25px, 5vw, 34px);
+  }
+
+  .dataHubTopBar {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    padding: 7px;
+  }
+
+  .dataHubTopBar button {
+    flex: 0 0 162px;
+    min-height: 42px;
+  }
+
+  .dataVehicleBadges {
+    justify-content: flex-start;
+  }
+
+  .dataVehicleActions {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) 42px;
+  }
+
+  .tuneView {
+    grid-template-rows: auto auto;
+    align-content: start;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+
+  .tuneLabHeader {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    min-height: auto;
+    padding: 12px;
+  }
+
+  .labIdentity h2,
+  .labIdentity p {
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+  }
+
+  .labMeters,
+  .labActions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fitBadge {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fitBadge,
+  .labActions {
+    grid-column: auto;
+  }
+
+  .tuneWorkbench {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "tabs"
+      "panel"
+      "output";
+    grid-template-rows: auto auto auto;
+    gap: 10px;
+    min-height: auto;
+  }
+
+  .tunePanelTopBar {
+    position: sticky;
+    top: 0;
+    z-index: 9;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 6px;
+  }
+
+  .tuneTabButton {
+    flex: 0 0 116px;
+    min-height: 52px;
+  }
+
+  .tuneTabButton span {
+    font-size: 11px;
+  }
+
+  .tuneControls,
+  .fineTune,
+  .tuneAssistantPanel,
+  .tuneSummaryPanel,
+  .tuneCalibrationPanel {
+    max-height: none;
+    overflow-y: visible;
+    padding: 14px;
+  }
+
+  .fineTune {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sectionTitle {
+    align-items: flex-start;
+  }
+
+  .sectionTitle span {
+    overflow: visible;
+    line-height: 1.35;
+    text-overflow: clip;
+    white-space: normal;
+  }
+
+  .tuneOutput {
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .tuneHero {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    padding: 12px;
+  }
+
+  .sheetMeta {
+    justify-content: flex-start;
+  }
+
+  .formulaStrip,
+  .tuneDigest,
+  .summaryHighlights {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tuneGrid {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 10px;
+  }
+
+  .section-gearing .valueList,
+  .section-diff .valueList {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .valueRow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .valueRow strong {
+    justify-self: start;
+    margin-top: 0;
+    white-space: normal;
+  }
+
+  .advisorChangeList span,
+  .assistantStep {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .captureStep {
+    grid-template-columns: 30px minmax(0, 1fr);
+  }
+
+  .captureStep em {
+    grid-column: 2;
+    justify-self: start;
+    text-align: left;
+  }
+
+  .assistantStep > span {
+    width: 28px;
+    height: 28px;
+  }
+
+  .assistantStep b {
+    justify-self: start;
+    text-align: left;
+    white-space: normal;
+  }
+}
